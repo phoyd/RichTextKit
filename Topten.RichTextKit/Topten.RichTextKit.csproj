@@ -1,34 +1,28 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <Import Project="../buildtools/Topten.props" />
-
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0;net462;net5.0</TargetFrameworks>
-  </PropertyGroup>
-   
-  <PropertyGroup Condition="'$(Configuration)'=='Release'">
-    <TtsCodeSign>True</TtsCodeSign>
-    <GenerateDocumentationFile>True</GenerateDocumentationFile>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
-    <PackageProjectUrl>https://github.com/toptensoftware/richtextkit</PackageProjectUrl>
-    <PackageIcon>nuget-icon.png</PackageIcon>
-    <PackageTags>rich text, rich, text, Skia, SkiaSharp, Font</PackageTags>
-    <Description>Easy to use rich text rendering for SkiaSharp, including font-fallback, bi-directional text support and more...</Description>
-    <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
-    <RepositoryUrl>https://github.com/toptensoftware/richtextkit</RepositoryUrl>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+    <LangVersion>8.0</LangVersion>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="HarfBuzzSharp.NativeAssets.Linux" Version="2.8.2.3" />
-    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-    <PackageReference Include="SkiaSharp" Version="2.88.7" />
-    <PackageReference Include="SkiaSharp.HarfBuzz" Version="2.88.7" />
-    <PackageReference Include="SkiaSharp.NativeAssets.Linux" Version="2.88.7" />
-    <PackageReference Include="System.ValueTuple" Version="4.5.0" />
+    <None Remove="Resources\BidiClasses.trie" />
+    <None Remove="Resources\GraphemeClusterClasses.trie" />
+    <None Remove="Resources\LineBreakClasses.trie" />
+    <None Remove="Resources\WordBoundaryClasses.trie" />
   </ItemGroup>
 
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\BidiClasses.trie" />
+    <EmbeddedResource Include="Resources\GraphemeClusterClasses.trie" />
+    <EmbeddedResource Include="Resources\LineBreakClasses.trie" />
+    <EmbeddedResource Include="Resources\WordBoundaryClasses.trie" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="HarfBuzzSharp.NativeAssets.Linux" Version="8.3.1.5" />
+    <PackageReference Include="SkiaSharp" Version="3.119.4" />
+    <PackageReference Include="SkiaSharp.HarfBuzz" Version="3.119.4" />
+    <PackageReference Include="SkiaSharp.NativeAssets.Linux" Version="3.119.4" />
+  </ItemGroup>
 </Project>
