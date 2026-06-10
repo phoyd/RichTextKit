@@ -62,20 +62,29 @@ class RichStringSandboxControl : SkiaControl
         _richString.MaxHeight = height;
 
         var state = $"Measured: {_richString.MeasuredWidth} x {_richString.MeasuredHeight} Lines: {_richString.LineCount} Truncated: {_richString.Truncated} Length: {_richString.MeasuredLength} Revision: {_richString.Revision}";
-        canvas.DrawText(state, margin, 20, new SKPaint()
+
+        var arial12 = new SKFont()
         {
             Typeface = SKTypeface.FromFamilyName("Arial"),
-            TextSize = 12,
-            IsAntialias = true,
-        });
+            Size = 12
+        };
+        var antialiasPaint = new SKPaint()
+        {
+            IsAntialias = true
+        };
+
+        canvas.DrawText(state, margin, 20, arial12, antialiasPaint);
 
         state = $"Hit Test: Over {_htr.OverCodePointIndex} Line {_htr.OverLine}.  Closest: {_htr.ClosestCodePointIndex} Line {_htr.ClosestLine}";
+        /*
         canvas.DrawText(state, margin, 40, new SKPaint()
         {
             Typeface = SKTypeface.FromFamilyName("Arial"),
             TextSize = 12,
             IsAntialias = true,
         });
+        */
+        canvas.DrawText(state,margin,40,arial12, antialiasPaint);
 
         var options = new TextPaintOptions()
         {

@@ -336,31 +336,26 @@ namespace SandboxDriver
             }
 
             var state = $"Size: {width} x {height} Base Direction: {BaseDirection} Alignment: {TextAlignment} Content: {ContentMode} scale: {Scale} time: {elapsed} subpixel: {SubpixelPositioning} hinting: {Hinting} edging: {Edging}";
-            canvas.DrawText(state, margin, 20, new SKPaint()
+
+            var arial12 = new SKFont()
             {
                 Typeface = SKTypeface.FromFamilyName("Arial"),
-                TextSize = 12,
+                Size = 12,
+            };
+            var antialiasedPaint = new SKPaint()
+            {
                 IsAntialias = true,
-            });
+            };
+            canvas.DrawText(state, margin, 20, arial12, antialiasedPaint);
 
             if (options.Selection.HasValue)
                 state = $"Selection: {options.Selection.Value.Start}-{options.Selection.Value.End} Closest: {(htr.HasValue ? htr.Value.ClosestCodePointIndex.ToString() : "-")}";
             else
                 state = $"Selection: none";
-            canvas.DrawText(state, margin, 40, new SKPaint()
-            {
-                Typeface = SKTypeface.FromFamilyName("Arial"),
-                TextSize = 12,
-                IsAntialias = true,
-            });
+            canvas.DrawText(state, margin, 40, arial12, antialiasedPaint);
 
             state = $"Measured: {_textBlock.MeasuredWidth} x {_textBlock.MeasuredHeight} Lines: {_textBlock.Lines.Count} Truncated: {_textBlock.Truncated}";
-            canvas.DrawText(state, margin, 60, new SKPaint()
-            {
-                Typeface = SKTypeface.FromFamilyName("Arial"),
-                TextSize = 12,
-                IsAntialias = true,
-            });
+            canvas.DrawText(state, margin, 60, arial12, antialiasedPaint);
         }
 
         float _hitTestX;
