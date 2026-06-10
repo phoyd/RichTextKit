@@ -11,12 +11,26 @@ class RichStringSandboxControl : SkiaControl
     bool _useMaxHeight = true;
     RichString _richString;
     HitTestResult _htr;
+    SKFont _arial12;
+    SKPaint _antialiasPaint;
+
     public RichStringSandboxControl()
     {
         _richString = new RichString()
        .MarginLeft(20).MarginRight(20)
        .Add("Big text\nMore Big Text\nSomething Else", fontSize: 40, letterSpacing: 0)
        .Add("Little text", fontSize: 12, letterSpacing: 0);
+
+        _arial12 = new SKFont()
+        {
+            Typeface = SKTypeface.FromFamilyName("Arial"),
+            Size = 12
+        };
+
+        _antialiasPaint = new SKPaint()
+        {
+            IsAntialias = true
+        };
     }
     protected override void OnPointerMoved(PointerEventArgs e)
     {
@@ -31,7 +45,6 @@ class RichStringSandboxControl : SkiaControl
             _htr = htr;
             InvalidateVisual();
         }
-        InvalidateVisual();
 
     }
 
@@ -63,17 +76,7 @@ class RichStringSandboxControl : SkiaControl
 
         var state = $"Measured: {_richString.MeasuredWidth} x {_richString.MeasuredHeight} Lines: {_richString.LineCount} Truncated: {_richString.Truncated} Length: {_richString.MeasuredLength} Revision: {_richString.Revision}";
 
-        var arial12 = new SKFont()
-        {
-            Typeface = SKTypeface.FromFamilyName("Arial"),
-            Size = 12
-        };
-        var antialiasPaint = new SKPaint()
-        {
-            IsAntialias = true
-        };
-
-        canvas.DrawText(state, margin, 20, arial12, antialiasPaint);
+        canvas.DrawText(state, margin, 20, _arial12, _antialiasPaint);
 
         state = $"Hit Test: Over {_htr.OverCodePointIndex} Line {_htr.OverLine}.  Closest: {_htr.ClosestCodePointIndex} Line {_htr.ClosestLine}";
         /*
@@ -84,7 +87,7 @@ class RichStringSandboxControl : SkiaControl
             IsAntialias = true,
         });
         */
-        canvas.DrawText(state,margin,40,arial12, antialiasPaint);
+        canvas.DrawText(state, margin, 40, _arial12, _antialiasPaint);
 
         var options = new TextPaintOptions()
         {

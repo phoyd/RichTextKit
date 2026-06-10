@@ -1,11 +1,6 @@
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Input;
-using Avalonia.Media;
-using Avalonia.Remote.Protocol.Input;
-using Avalonia.Rendering.SceneGraph;
-using Avalonia.Skia;
-using Avalonia.Threading;
 using SkiaSharp;
 using System;
 using Topten.RichTextKit;
@@ -17,32 +12,8 @@ namespace Sandbox.Avalonia;
 /// </summary>
 public class SandboxControl : SkiaControl
 {
-    class ControlDrawOperation : ICustomDrawOperation
-    {
-        public SandboxDriver.SandboxDriver driver = new();
-        public Rect Bounds { get; set; }
-
-        public ControlDrawOperation()
-        {
-        }
-
-        public void Render(ImmediateDrawingContext context)
-        {
-            var feature = context.TryGetFeature<ISkiaSharpApiLeaseFeature>();
-            if (feature == null)
-                throw new InvalidOperationException("Unable to obtain SkiaSharp API lease from drawing context.");
-            using var lease = feature.Lease();
-
-            SKCanvas canvas = lease.SkCanvas;
-            driver.Render(canvas, (float)Bounds.Width, (float)Bounds.Height);
-        }
-
-        public bool HitTest(Point p) => false;
-        public bool Equals(ICustomDrawOperation? other) => false;
-        public void Dispose() { }
-    }
-
     public SandboxDriver.SandboxDriver _driver = new();
+
     protected override void RenderSkia(SKCanvas canvas, Rect bounds)
     {
         _driver.Render(canvas, (float)bounds.Width, (float)bounds.Height);
