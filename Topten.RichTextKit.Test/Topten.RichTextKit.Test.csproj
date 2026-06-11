@@ -24,19 +24,5 @@
     <ProjectReference Include="..\Topten.RichTextKit\Topten.RichTextKit.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <None Update="TestData\BidiCharacterTest.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="TestData\BidiTest.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="TestData\GraphemeBreakTest.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="TestData\LineBreakTest.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
 
 </Project>
