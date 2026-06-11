@@ -17,5 +17,8 @@
     <PackageReference Include="SkiaSharp" Version="3.119.4" />
     <PackageReference Include="SkiaSharp.HarfBuzz" Version="3.119.4" />
     <PackageReference Include="SkiaSharp.NativeAssets.Linux" Version="3.119.4" />
-  </ItemGroup>
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="10.0.300">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>  </ItemGroup>
 </Project>
