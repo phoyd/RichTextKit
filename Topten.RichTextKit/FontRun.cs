@@ -495,7 +495,7 @@ namespace Topten.RichTextKit
                 }
             }
 
-            using (var paint = new SKPaint())
+            using (var font = new SKFont())
             {
                 float glyphScale = 1;
                 if (Style.FontVariant == FontVariant.SuperScript)
@@ -507,18 +507,15 @@ namespace Topten.RichTextKit
                     glyphScale = 0.65f;
                 }
 
-                paint.TextEncoding = SKTextEncoding.GlyphId;
-                paint.Typeface = Typeface;
-                paint.TextSize = Style.FontSize * glyphScale;
-                paint.SubpixelText = true;
-                paint.IsAntialias = true;
-                paint.LcdRenderText = false;
+                font.Typeface = Typeface; 
+                font.Size = Style.FontSize * glyphScale;
+                font.Edging = SKFontEdging.SubpixelAntialias; 
 
                 unsafe
                 {
                     fixed (ushort* pGlyphs = Glyphs.Underlying)
                     {
-                        paint.GetGlyphWidths((IntPtr)(pGlyphs + Start), sizeof(ushort) * Glyphs.Length, out var bounds);
+                        font.GetGlyphWidths((IntPtr)(pGlyphs + Start), sizeof(ushort) * Glyphs.Length,SKTextEncoding.GlyphId,out var bounds);
                         if (bounds != null)
                         {
                             for (int i = 0; i < bounds.Length; i++)
